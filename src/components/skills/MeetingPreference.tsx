@@ -9,7 +9,8 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { MapPin } from "lucide-react";
+import { MapPin, Video, Monitor } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface MeetingPreferenceProps {
   onPreferenceChange: (data: {
@@ -42,6 +43,25 @@ const MeetingPreference = ({ onPreferenceChange }: MeetingPreferenceProps) => {
     }
   };
 
+  const getPlatformIcon = () => {
+    switch (platform) {
+      case "zoom":
+        return <Video className="h-5 w-5" />;
+      case "google-meet":
+        return <Monitor className="h-5 w-5" />;
+      default:
+        return null;
+    }
+  };
+
+  const handlePlatformConnect = () => {
+    if (platform === "zoom") {
+      window.open("https://zoom.us/oauth/authorize", "_blank");
+    } else if (platform === "google-meet") {
+      window.open("https://accounts.google.com/o/oauth2/auth", "_blank");
+    }
+  };
+
   return (
     <div className="space-y-4 p-4 border rounded-lg bg-white">
       <div className="space-y-2">
@@ -64,17 +84,37 @@ const MeetingPreference = ({ onPreferenceChange }: MeetingPreferenceProps) => {
         {meetingType === "online" ? (
           <>
             <Label>Preferred Platform</Label>
-            <Select value={platform} onValueChange={handleDetailChange}>
-              <SelectTrigger>
-                <SelectValue placeholder="Select platform" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="zoom">Zoom</SelectItem>
-                <SelectItem value="google-meet">Google Meet</SelectItem>
-                <SelectItem value="teams">Microsoft Teams</SelectItem>
-                <SelectItem value="skype">Skype</SelectItem>
-              </SelectContent>
-            </Select>
+            <div className="space-y-2">
+              <Select value={platform} onValueChange={handleDetailChange}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select platform" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="zoom">
+                    <div className="flex items-center gap-2">
+                      <Video className="h-4 w-4" />
+                      <span>Zoom</span>
+                    </div>
+                  </SelectItem>
+                  <SelectItem value="google-meet">
+                    <div className="flex items-center gap-2">
+                      <Monitor className="h-4 w-4" />
+                      <span>Google Meet</span>
+                    </div>
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+
+              {platform && (
+                <Button
+                  onClick={handlePlatformConnect}
+                  className="w-full flex items-center justify-center gap-2"
+                >
+                  {getPlatformIcon()}
+                  <span>Connect to {platform === "google-meet" ? "Google Meet" : "Zoom"}</span>
+                </Button>
+              )}
+            </div>
           </>
         ) : (
           <>
