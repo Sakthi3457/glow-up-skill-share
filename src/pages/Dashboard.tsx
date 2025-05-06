@@ -1,11 +1,13 @@
-
 import { useEffect } from "react";
 import DashboardComponent from "@/components/dashboard/Dashboard";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import MeetingPreference from "@/components/skills/MeetingPreference";
+import { useAuth } from '../context/AuthContext';
 
 const Dashboard = () => {
+  const { user } = useAuth();
+
   useEffect(() => {
     document.title = "Dashboard | SkillSwap";
   }, []);
