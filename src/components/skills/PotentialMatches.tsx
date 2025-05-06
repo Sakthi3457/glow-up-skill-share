@@ -20,13 +20,14 @@ const PotentialMatches = ({
   const { user } = useAuth();
   const { toast } = useToast();
   
-  // Filter potential matches based on skills
+  // Filter potential matches based on skills - fixed to handle undefined properties
   const potentialMatches = useMemo(() => {
     if (!userLearnSkills.length || !user) return [];
     
     return mockUsers.filter(mockUser => 
       mockUser.id !== user.id && // Don't include current user
-      mockUser.teachingSkills.some(skill => 
+      mockUser.skillsToTeach && // Check if skillsToTeach exists
+      mockUser.skillsToTeach.some(skill => 
         userLearnSkills.includes(skill)
       )
     );
@@ -77,7 +78,7 @@ const PotentialMatches = ({
                 ) : (
                   potentialMatches.map(match => (
                     <SelectItem key={match.id} value={match.id}>
-                      {match.name} - {match.teachingSkills.filter(skill => 
+                      {match.name} - {match.skillsToTeach.filter(skill => 
                         userLearnSkills.includes(skill)
                       ).join(", ")}
                     </SelectItem>

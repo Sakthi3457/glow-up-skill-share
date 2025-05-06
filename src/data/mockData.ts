@@ -5,7 +5,7 @@ export interface User {
   email: string;
   bio: string;
   location: string;
-  profileImage: string;
+  profileImage?: string;
   skillsToTeach: string[];
   skillsToLearn: string[];
   availability: {

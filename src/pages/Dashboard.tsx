@@ -11,8 +11,8 @@ import { currentUser } from "@/data/mockData";
 const Dashboard = () => {
   const { user } = useAuth();
   // Using currentUser from mockData for the initial skills, would come from backend in real app
-  const [teachSkills, setTeachSkills] = useState<string[]>(currentUser.teachingSkills || []);
-  const [learnSkills, setLearnSkills] = useState<string[]>(currentUser.learningSkills || []);
+  const [teachSkills, setTeachSkills] = useState<string[]>(currentUser.skillsToTeach || []);
+  const [learnSkills, setLearnSkills] = useState<string[]>(currentUser.skillsToLearn || []);
 
   useEffect(() => {
     document.title = "Dashboard | SkillSwap";
