@@ -124,7 +124,7 @@ const MeetingPreference = ({ onPreferenceChange }: MeetingPreferenceProps) => {
                 type="text"
                 value={location}
                 onChange={(e) => handleDetailChange(e.target.value)}
-                placeholder="Enter meeting location"
+                placeholder="Enter city, address or meeting point"
                 className="pl-10"
               />
               <MapPin className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />

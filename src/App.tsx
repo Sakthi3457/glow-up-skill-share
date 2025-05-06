@@ -1,3 +1,4 @@
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider } from './context/ThemeContext';
 import Layout from './components/common/Layout';
@@ -9,6 +10,7 @@ import Profile from './pages/Profile';
 import SkillListings from './pages/SkillListings';
 import Chat from './pages/Chat';
 import AdminPanel from './pages/admin/AdminPanel';
+import Waitlist from './pages/Waitlist';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 
@@ -40,6 +42,11 @@ function App() {
               <Route path="chat" element={
                 <ProtectedRoute>
                   <Chat />
+                </ProtectedRoute>
+              } />
+              <Route path="waitlist" element={
+                <ProtectedRoute>
+                  <Waitlist />
                 </ProtectedRoute>
               } />
               <Route path="admin" element={

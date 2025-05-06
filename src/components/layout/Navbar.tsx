@@ -3,11 +3,12 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { currentUser } from "@/data/mockData";
+import { useAuth } from "@/context/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const isLoggedIn = !!currentUser;
+  const { user } = useAuth();
+  const isLoggedIn = !!user;
 
   return (
     <nav className="sticky top-0 z-50 w-full bg-white border-b border-gray-200 shadow-sm">
@@ -33,15 +34,18 @@ const Navbar = () => {
                 <Link to="/messages" className="text-gray-600 hover:text-swap-purple">
                   Messages
                 </Link>
+                <Link to="/waitlist" className="text-gray-600 hover:text-swap-purple">
+                  Waitlist
+                </Link>
                 <div className="relative ml-4">
                   <Link to="/profile" className="flex items-center space-x-2">
                     <Avatar className="h-8 w-8 transition-transform hover:scale-110">
                       <AvatarImage 
-                        src={currentUser.profileImage} 
-                        alt={currentUser.name} 
+                        src={user.profileImage} 
+                        alt={user.name} 
                       />
                       <AvatarFallback className="bg-swap-blue text-white">
-                        {currentUser.name.charAt(0)}
+                        {user.name.charAt(0)}
                       </AvatarFallback>
                     </Avatar>
                   </Link>
@@ -123,6 +127,13 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
               >
                 Messages
+              </Link>
+              <Link
+                to="/waitlist"
+                className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-swap-purple hover:bg-gray-50"
+                onClick={() => setIsOpen(false)}
+              >
+                Waitlist
               </Link>
               <Link
                 to="/profile"
